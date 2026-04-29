@@ -1302,7 +1302,6 @@ Mold 환경 전체에 적용되는 글로벌 설정 항목을 확인하고 수�
         <th>Storpool snapshot tags checkup (storpool.snapshot.tags.checkup)</th>
         <th>StorPool 스냅샷을 데이터베이스에 보고하고 확인하는 최소 간격이빈다.(초 단위)</th>
     </tr>  
-
 </table>    
 
 <table>
@@ -1331,7 +1330,6 @@ Mold 환경 전체에 적용되는 글로벌 설정 항목을 확인하고 수�
         <th>VmSnapshot strategies exclude (vmSnapshot.strategies.exclude)</th>
         <th>VM스냅샷 방식 중 제외할 목록</th>
     </tr>  
-
 </table>    
 
 * Network
@@ -2275,8 +2273,801 @@ Mold 환경 전체에 적용되는 글로벌 설정 항목을 확인하고 수�
     
 </table>
 
+
+
 * Management Server
     * 관리 서버의 동작 방식과 관련된 설정 항목입니다.
+    
+<table>
+    <tr>
+        <th>분류</th>
+        <th>옵션명</th>
+        <th>설명</th>
+    </tr>
+    <tr>
+        <th>API</th>
+        <th>Api allowed source cidr (api.allowed.source.cidr)</th>
+        <th>API 포트(기본 8080 또는 8096)에 접근할 수 있는 IP 주소 범위</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api allowed source ip (api.allowed.source.ip)</th>
+        <th>API에 접근가능한 주소(CIDR 형식)</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api checkers acl exclude (api.checkers.acl.exclude)</th>
+        <th>API 접근시 ACL 검사 제외 목록</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api checkers exclude (api.checkers.exclude)</th>
+        <th>모든 API 검증 절차 제외</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api key access (api.key.access)</th>
+        <th>API 키 접근 허용.(최상위 관리자만 허용/비허용 가능)</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api sessionkey check locations (api.sessionkey.check.locations)</th>
+        <th>API 요청시 세션키를 검증할 위치. 허용옵션: 쿠키 혹은 파라미터, 파라미터, 쿠키와 파라미더(기본)</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api sessionkey cookie samesite (api.sessionkey.cookie.samesite)</th>
+        <th>쿠키 '세션키'의 같은 사이트 속성. 허용옵션: Lax(기본, 사용자가 다른 사이트에서 클릭해 이동할 때 쿠키 전송. 타 사이트에서 백그라운드로 API 호출할 때는 전송하지 않음), Strict(오직 Ablestack UI 도메인 내에서의 요청에만 쿠키 전송, 타 사이트 링크 접속시 세션 유지 안됨), None(모든 교차 사이트에 쿠키 전송. Secure 속성을 사용하지 않으면 CSRF 공격에 취약)</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api source cidr checks enabled (api.source.cidr.checks.enabled)</th>
+        <th>API 요청이 허용한 CIDR 범위에 있는지 확인</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api throttling enabled (api.throttling.enabled)</th>
+        <th>단위 시간당 요청 횟수 제한</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api throttling cachesize (api.throttling.cachesize)</th>
+        <th>계정당 API 요청 저장 캐시크기</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api throttling interval (api.throttling.interval)</th>
+        <th>API 요청 초기화 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Api throttling max (api.throttling.max)</th>
+        <th>정해진 간격 내 최대 API 요청 횟수</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Enable ec2 api (enable.ec2.api)</th>
+        <th>EC2 API 호출 허용</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Enable s3 api (enable.s3.api)</th>
+        <th>AWS S3 API 호출 허용</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Encode api response (encode.api.response)</th>
+        <th>API 응답을 HTML 으로 인코딩, 비활성화가 기본값</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Integration api port (integration.api.port)</th>
+        <th>미인증 API 수신포트. 비활성화는 0 혹은 negative</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Nsx api failure interval (nsx.api.failure.interval)</th>
+        <th>Mold가 NSX API 요청후 대기시간.(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>API</th>
+        <th>Nsx api failure retries (nsx.api.failure.retries)</th>
+        <th>NSX API 요청 실패시 재시도 횟수</th>
+    </tr> 
+</table>    
+
+
+<table>
+    <tr>
+        <th>분류</th>
+        <th>옵션명</th>
+        <th>설명</th>
+    </tr>
+    <tr>
+        <th>Alert</th>
+        <th>Alert email addresses (alert.email.addresses)</th>
+        <th>경고 메일을 받을 주소. ',' 로 구분</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert email sender (alert.email.sender)</th>
+        <th>경고 메일 발신자</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert purge delay (alert.purge.delay)</th>
+        <th>최대 알람 저장일. '0' 일 경우 삭제안함.</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert purge interval (alert.purge.interval)</th>
+        <th>경고 삭제 스레드 실행 주기(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert smtp connectiontimeout (alert.smtp.connectiontimeout)</th>
+        <th>경고 메일 전송 서버 연결제한(단위 밀리초). '-1' 일 경우 무제한</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert smtp enabledSecurityProtocols (alert.smtp.enabledSecurityProtocols)</th>
+        <th>경고 메일 서버 보안 프로토콜; 예시: "TLSv1 TLSv1.1". 지원 프로토콜: SSLv2Hello, SSLv3, TLSv1, TLSv1.1, TLSv1.2</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert smtp host (alert.smtp.host)</th>
+        <th>경고 메일 서버명(주소)</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert smtp password (alert.smtp.password)</th>
+        <th>경고 메일 서버 비밀번호</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert smtp port (alert.smtp.port)</th>
+        <th>경고 메일 서버 포트</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert smtp timeout (alert.smtp.timeout)</th>
+        <th>소켓 입출력 시간제한(단위 밀리초). '-1' 일 경우 무제한</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert smtp useAuth (alert.smtp.useAuth)</th>
+        <th>메일 발송시 SMTP 인증</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert smtp username (alert.smtp.username)</th>
+        <th>경고 메일 서버 유저명(Alert smtp useAuth 가 활성화된 경우)</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert smtp useStartTLS (alert.smtp.useStartTLS)</th>
+        <th>Alert smtp useAuth 가 활성화된 경우, smtp 연결에 StartTLS 사용</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Alert wait (alert.wait)</th>
+        <th>에이전트와 연결이 끊어졌을 때 대기 시간</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Publish alert events (publish.alert.events)</th>
+        <th>경고 이벤트를 이벤트 버스를 통해 외부로 전송</th>
+    </tr> 
+    <tr>
+        <th>Alert</th>
+        <th>Wall alerts enable (wall.alerts.enable)</th>
+        <th>Wall(모니터링) 경고 통합</th>
+    </tr> 
+</table>    
+
+
+<table>
+    <tr>
+        <th>분류</th>
+        <th>옵션명</th>
+        <th>설명</th>
+    </tr>
+    <tr>
+        <th>Events</th>
+        <th>Event buses exclude (event.buses.exclude)</th>
+        <th>이벤트 버스에서 제외할 소스</th>
+    </tr> 
+    <tr>
+        <th>Events</th>
+        <th>Event delete enabled (event.delete.enabled)</th>
+        <th>이벤트 삭제 가능</th>
+    </tr> 
+    <tr>
+        <th>Events</th>
+        <th>Event purge delay (event.purge.delay)</th>
+        <th>최대 이벤트 저장일. 0 혹은 never 일 경우 삭제안함</th>
+    </tr> 
+    <tr>
+        <th>Events</th>
+        <th>Event purge interval (event.purge.interval)</th>
+        <th>이벤트 삭제 간격</th>
+    </tr> 
+    <tr>
+        <th>Events</th>
+        <th>Event recent minutes (event.recent.minutes)</th>
+        <th>최근 몇 분 동안 생성된 이벤트 리스트 제공</th>
+    </tr> 
+    <tr>
+        <th>Events</th>
+        <th>Publish action events (publish.action.events)</th>
+        <th>이벤트를 이벤트 버스를 통해 외부로 전송</th>
+    </tr> 
+    <tr>
+        <th>Events</th>
+        <th>Publish resource state events (publish.resource.state.events)</th>
+        <th>경고 이벤트를 이벤트 버스를 통해 외부로 전송</th>
+    </tr> 
+</table>    
+
+<table>
+    <tr>
+        <th>분류</th>
+        <th>옵션명</th>
+        <th>설명</th>
+    </tr>
+    <tr>
+        <th>Security</th>
+        <th>Enable secure session cookie (enable.secure.session.cookie)</th>
+        <th>secure 세션 쿠키 사용. HTTPS 환경에서 작동</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Log hide password (log.hide.password)</th>
+        <th>로그에서 패스워드를 숨깁니다.</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy allowConsecutiveRepetitionsOfSameLettersAndNumbers (password.policy.allowConsecutiveRepetitionsOfSameLettersAndNumbers)</th>
+        <th>유저 패스워드에서 연속된 같은 문자나 숫자를 허용합니다.</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy allowContinuousLettersAndNumbersInputOnKeyboard (password.policy.allowContinuousLettersAndNumbersInputOnKeyboard)</th>
+        <th>유저 패스워드가 키보드 자판의 연속된 숫자 혹은 문자를 사용할 수 있음</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy allowPasswordToContainUsername (password.policy.allowPasswordToContainUsername)</th>
+        <th>유저의 패스워드가 유저명을 포함할 수 있음</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy allowUseOfLastUsedPassword (password.policy.allowUseOfLastUsedPassword)</th>
+        <th>직전에 사용된 유저 패스워드를 다시 사용할 수 있음</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy maximum length (password.policy.maximum.length)</th>
+        <th>유저 패스워드의 최대 길이. 15자를 넘을 수 없음</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy minimum digits (password.policy.minimum.digits)</th>
+        <th>유저 패스워드가 포함할 최소 갯수의 숫자. 0 일 경우 아무 숫자도 필요없음</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy minimum lowercase letters (password.policy.minimum.lowercase.letters)</th>
+        <th>유저 패스워드에 포함해야 하는 소문자의 최소 갯수. 0 일 경우 어떤 소문자도 필요없음</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy minimum special characters (password.policy.minimum.special.characters)</th>
+        <th>유저 패스워드에 포함해야할 문자의 최소 갯수. 0 일 경우 어떤 문자도 필요없음</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy minimum uppercase letters (password.policy.minimum.uppercase.letters)</th>
+        <th>유저 패스워드에 포함해야할 대문자의 최소 갯수. 0 일 경우 어떤 대문자도 필요없음</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Password policy regex (password.policy.regex)</th>
+        <th>유저 패스워드가 지켜야할 정규식. 기본값 ".+" 는 어떤 패스워드에도 적용할 수 있음</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>PluggableApi authenticators exclude (pluggableApi.authenticators.exclude)</th>
+        <th>등록된 인증기 중 비활성화 목록</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>PluggableApi authenticators order (pluggableApi.authenticators.order)</th>
+        <th>인증기 적용 순서</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Security check interval (security.check.interval)</th>
+        <th>하루에 백그라운드에서 실행되는 보안 점검 횟수</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Security checkers exclude (security.checkers.exclude)</th>
+        <th>등록된 보안 점검기 중 제외목록</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Security checkers order (security.checkers.order)</th>
+        <th>보안 점검 순서</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Security features enabled (security.features.enabled)</th>
+        <th>보안 기능 활성화</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Security singlesignon key (security.singlesignon.key)</th>
+        <th>로깅에 사용될 싱글사인온(SSO) 키</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>Security singlesignon tolerance millis (security.singlesignon.tolerance.millis)</th>
+        <th>싱글사인온(SSO) 로그인시 허용 가능 시간차</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User authenticators exclude (user.authenticators.exclude)</th>
+        <th>등록된 인증기중 제외목록</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User authenticators order (user.authenticators.order)</th>
+        <th>인증기 실행 순서</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password encoders exclude (user.password.encoders.exclude)</th>
+        <th>유저 패스워드 암호 알고리즘 중 제외목록</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password encoders order (user.password.encoders.order)</th>
+        <th>암호 알고리즘 검증 순서</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password reset email sender (user.password.reset.email.sender)</th>
+        <th>유저 패스워드 재설정 메일 송신자</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password reset enabled (user.password.reset.enabled)</th>
+        <th>유저 패스워드 재설정 가능</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password reset mail template (user.password.reset.mail.template)</th>
+        <th>유저 패스워드 재설정 메일 양식</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password reset smtp host (user.password.reset.smtp.host)</th>
+        <th>유저 패스워드 재설정 메일 서버</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password reset smtp password (user.password.reset.smtp.password)</th>
+        <th>유저 패스워드 재설정 메일 서버 패스워드</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password reset smtp port (user.password.reset.smtp.port)</th>
+        <th>유저 패스워드 재설정 메일 포트</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password reset smtp useAuth (user.password.reset.smtp.useAuth)</th>
+        <th>유저 패스워드 재설정 메일 서버 인증 사용</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password reset smtp username (user.password.reset.smtp.username)</th>
+        <th>유저 패스워드 재설정 메일 서버 유저명</th>
+    </tr> 
+    <tr>
+        <th>Security</th>
+        <th>User password reset ttl (user.password.reset.ttl)</th>
+        <th>유저 패스워드 재설정 토큰 제한시간(단위 분)</th>
+    </tr> 
+</table>    
+
+<table>
+    <tr>
+        <th>분류</th>
+        <th>옵션명</th>
+        <th>설명</th>
+    </tr>
+    <tr>
+        <th>Usage</th>
+        <th>Enable usage server (enable.usage.server)</th>
+        <th>사용량 서버 사용</th>
+    </tr> 
+    <tr>
+        <th>Usage</th>
+        <th>Publish usage events (publish.usage.events)</th>
+        <th>사용량 이벤트를 이벤트 버스를 통해 외부로 전송</th>
+    </tr> 
+    <tr>
+        <th>Usage</th>
+        <th>Usage aggregation timezone (usage.aggregation.timezone)</th>
+        <th>사용량 추계 프로세스가 사용할 시간대</th>
+    </tr> 
+    <tr>
+        <th>Usage</th>
+        <th>Usage execution timezone (usage.execution.timezone)</th>
+        <th>사용량 추계시 사용할 시간대</th>
+    </tr> 
+    <tr>
+        <th>Usage</th>
+        <th>Usage sanity check interval (usage.sanity.check.interval)</th>
+        <th>사용량 추계 무결성 검증 횟수(하루에). 0 이거나 negative 일 경우 사용안함</th>
+    </tr> 
+    <tr>
+        <th>Usage</th>
+        <th>Usage snapshot virtualsize select (usage.snapshot.virtualsize.select)</th>
+        <th>스냅샷 사용량 추계시 가상사이즈 적용, 비활성화시 물리사이즈 적용</th>
+    </tr> 
+    <tr>
+        <th>Usage</th>
+        <th>Usage stats job aggregation range (usage.stats.job.aggregation.range)</th>
+        <th>유저의 사용량 집계 시간 범위(단위 분)</th>
+    </tr> 
+    <tr>
+        <th>Usage</th>
+        <th>Usage stats job exec time (usage.stats.job.exec.time)</th>
+        <th>사용량 추계 프로세스 실행 시간</th>
+    </tr> 
+</table>    
+
+<table>
+    <tr>
+        <th>분류</th>
+        <th>옵션명</th>
+        <th>설명</th>
+    </tr>
+    <tr>
+        <th>Limits</th>
+        <th>Autoscale stats cleanup delay (autoscale.stats.cleanup.delay)</th>
+        <th>DB에서 오토스케일 통계를 저장할 시간(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Autoscale stats interval (autoscale.stats.interval)</th>
+        <th>가상머신 오토스케일링이 실행되는 간격(단위 초). 1초 미만은 오토스케일 비활성화</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Capacity check period (capacity.check.period)</th>
+        <th>가용자원 확인 주기(단위 밀리초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Capacity skipcounting hours (capacity.skipcounting.hours)</th>
+        <th>가상머신이 정지되었을때 할당된 CPU와 메모리 자원의 해제를 기다리는 시간(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Cluster heartbeat interval (cluster.heartbeat.interval)</th>
+        <th>CCVM에 대한 하트비트 간격(단위 밀리초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Cluster localStorage capacity notificationthreshold (cluster.localStorage.capacity.notificationthreshold)</th>
+        <th>로컬 스토리지 사용량 경고</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Cluster memory allocated capacity disablethreshold (cluster.memory.allocated.capacity.disablethreshold)</th>
+        <th>클러스터당 메모리 할당 제한 퍼센트</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Cluster memory allocated capacity notificationthreshold (cluster.memory.allocated.capacity.notificationthreshold)</th>
+        <th>클러스터당 메모리 할당 경고 퍼센트</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Console session cleanup interval (console.session.cleanup.interval)</th>
+        <th>콘솔 세션 회수 간격(단위 시간)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Database server stats interval (database.server.stats.interval)</th>
+        <th>DB 서버의 통계 수집 주기(단위 초). 0 이거나 작을 경우 수집하지 않음</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Direct download certificate background task interval (direct.download.certificate.background.task.interval)</th>
+        <th>SSVM을 거치지 않고 직접 다운로드를 지원하는 호스트에 대한 보안 인증서 상태 점검 주기(단위 시간)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Expunge delay (expunge.delay)</th>
+        <th>가상머신이 제거되기까지 대기시간. 기본값은 expunge.interval 과 같음</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Expunge workers (expunge.workers)</th>
+        <th>제거 워커 갯수</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Expunged resources purge delay (expunged.resources.purge.delay)</th>
+        <th>제거된 자원에 대한 DB 레코드 삭제작업 대기시간(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Expunged resources purge interval (expunged.resources.purge.interval)</th>
+        <th>삭제된 자원을 DB에서 지우는 작업의 간격</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Extract url cleanup interval (extract.url.cleanup.interval)</th>
+        <th>추출 다운로드 시 사용된 URL 제거 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Extract url expiration interval (extract.url.expiration.interval)</th>
+        <th>추출 URL 만료시간</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Favicon state interval (favicon.state.interval)</th>
+        <th>브라우저 탭 업데이트 주기(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Favicon stats red capacity (favicon.stats.red.capacity)</th>
+        <th>파비콘이 빨간색으로 표시될 인프라스트럭처 자원 사용량</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Favicon stats yellow capacity (favicon.stats.yellow.capacity)</th>
+        <th>파비콘이 노란색으로 표시될 인프라스트럭처 자원 사용량</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Flatten interval (flatten.interval)</th>
+        <th>네트워크 변경 스레드 실행 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Flatten workers (flatten.workers)</th>
+        <th>네트워크 변경 스레드 워커 수</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Healthcheck update interval (healthcheck.update.interval)</th>
+        <th>로드 밸런서 헬스체크 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Integrity verification interval (integrity.verification.interval)</th>
+        <th>하루에 실행되는 백그라운드 무결성 확인 작업 횟수</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Interval baremetal securitygroup agent echo (interval.baremetal.securitygroup.agent.echo)</th>
+        <th>베어메탈 보안 그룹 에이전트 체크 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Investigate retry interval (investigate.retry.interval)</th>
+        <th>에이전트가 연결 불가일 때 가상머신 핑 확인 간격</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Management server database capacity notificationthreshold (management.server.database.capacity.notificationthreshold)</th>
+        <th>Mold DB 스토리지 사용량 제한값</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Management server localStorage capacity notificationthreshold (management.server.localStorage.capacity.notificationthreshold)</th>
+        <th>관리서버의 로컬스토리지 사용량 경고</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Management server stats interval (management.server.stats.interval)</th>
+        <th>관리서버가 통계를 수집하는 간격(단위 초). 0 이거나 작을경우 비활성화</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Migrate retry interval (migrate.retry.interval)</th>
+        <th>마이그레이션 재시도 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>ObjectStorage capacity notificationthreshold (objectStorage.capacity.notificationthreshold)</th>
+        <th>오브젝트스토리지 사용량 경고(0 에서 1 사이)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Outofbandmanagement background task execution interval (outofbandmanagement.background.task.execution.interval)</th>
+        <th>OOBM 백그라운드 체크 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Ping interval (ping.interval)</th>
+        <th>어플리케이션 레벨 핑 확인 간격</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Pod privateip capacity notificationthreshold (pod.privateip.capacity.notificationthreshold)</th>
+        <th>사설 IP 주소 사용량 경고</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Resource reservation cleanup delay (resource.reservation.cleanup.delay)</th>
+        <th>예약되었으나 사용되지 않은 자원 할당이 해제되는 시간(단위 초). 기본값 3600. 0 일 경우 비활성화</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Resourcecount check interval (resourcecount.check.interval)</th>
+        <th>자원 사용량을 재계산하고 사용되지 않은 예약자원을 회수하는 간격(단위 초). 기본값 3600. 0 일 경우 비활성화</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Restart retry interval (restart.retry.interval)</th>
+        <th>가상머신 재시작 시도 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Stop retry interval (stop.retry.interval)</th>
+        <th>가상머신을 다시 중지하거나 제거하는 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Storpool delete after interval (storpool.delete.after.interval)</th>
+        <th>StorPool 스냅샷이 제거되는 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Storpool list snapshots delete after interval (storpool.list.snapshots.delete.after.interval)</th>
+        <th>삭제 설정된 StorPool 스냅샷을 조회하는 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Storpool volumes stats interval (storpool.volumes.stats.interval)</th>
+        <th>StorPool 볼륨 조회 간격</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Sync interval (sync.interval)</th>
+        <th>관리서버가 클러스터 변경사항을 조회하는 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Ucs sync blade interval (ucs.sync.blade.interval)</th>
+        <th>Cisco UCS(Unified Computing System) 블레이드 동기화 간격</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Upload monitoring interval (upload.monitoring.interval)</th>
+        <th>SSVM 업로드시 조회 간격(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Webhook deliveries cleanup initial delay (webhook.deliveries.cleanup.initial.delay)</th>
+        <th>웹훅 초기 전송 기록 정리 시간(단위 초)</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Webhook deliveries cleanup interval (webhook.deliveries.cleanup.interval)</th>
+        <th>웹훅 전송 기록 정리 간격</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Workers (workers)</th>
+        <th>에이전트 연결 워커 수</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Zone directnetwork publicip capacity notificationthreshold (zone.directnetwork.publicip.capacity.notificationthreshold)</th>
+        <th>공인 IP 사용량 경고</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Zone virtualnetwork ipv6subnet capacity notificationthreshold (zone.virtualnetwork.ipv6subnet.capacity.notificationthreshold)</th>
+        <th>가상네트워크의 IPv6 사용량 경고</th>
+    </tr> 
+    <tr>
+        <th>Limits</th>
+        <th>Zone virtualnetwork publicip capacity notificationthreshold (zone.virtualnetwork.publicip.capacity.notificationthreshold)</th>
+        <th>가상네트워크 공인 IP 사용량 경고</th>
+    </tr> 
+</table>    
+
+<table>
+    <tr>
+        <th>분류</th>
+        <th>옵션명</th>
+        <th>설명</th>
+    </tr>
+    <tr>
+        <th>Jobs</th>
+        <th>Expunged resource purge job delay (expunged.resource.purge.job.delay)</th>
+        <th>제거된 자원이 DB에서 파기되기까지의 시간. 최소값은 180 초 이어야 하며, 그보다 낮은 값은 180 초로 실행됨 </th>
+    </tr> 
+    <tr>
+        <th>Jobs</th>
+        <th>Job cancel threshold minutes (job.cancel.threshold.minutes)</th>
+        <th>설정된 시간보다 긴 시간의 비동기 작업은 강제 취소(단위 분)</th>
+    </tr> 
+    <tr>
+        <th>Jobs</th>
+        <th>Job expire minutes (job.expire.minutes)</th>
+        <th>비동기 작업 이력 보관(단위 분)</th>
+    </tr> 
+    <tr>
+        <th>Jobs</th>
+        <th>Publish async job events (publish.async.job.events)</th>
+        <th>비동기 작업 이벤트를 이벤트 버스를 통해 외부로 전송</th>
+    </tr> 
+</table>    
+
+<table>
+    <tr>
+        <th>분류</th>
+        <th>옵션명</th>
+        <th>설명</th>
+    </tr>
+    <tr>
+        <th>Agent</th>
+        <th>Agent lb enabled (agent.lb.enabled)</th>
+        <th>관리서버간 에이전트 로드밸런싱</th>
+    </tr> 
+    <tr>
+        <th>Agent</th>
+        <th>Agent load threshold (agent.load.threshold)</th>
+        <th>하나의 관리서버가 가용한 에이전트 사용량</th>
+    </tr> 
+    <tr>
+        <th>Agent</th>
+        <th>Check txn before sending agent commands (check.txn.before.sending.agent.commands)</th>
+        <th>개발자가 자원에 대한 명령어 DB트랜잭션을 확인 가능함. 운영 시스템에서 금지</th>
+    </tr> 
+    <tr>
+        <th>Agent</th>
+        <th>Direct agent load size (direct.agent.load.size)</th>
+        <th>관리서버당 연결 가능한 에이전트 수</th>
+    </tr> 
+    <tr>
+        <th>Agent</th>
+        <th>Direct agent pool size (direct.agent.pool.size)</th>
+        <th>관리서버당 처리가능한 에이전트 스레드 처리용량</th>
+    </tr> 
+    <tr>
+        <th>Agent</th>
+        <th>Direct agent scan interval (direct.agent.scan.interval)</th>
+        <th>관리서버가 에이전트 연결을 스캔하는 간격</th>
+    </tr> 
+    <tr>
+        <th>Agent</th>
+        <th>Direct agent thread cap (direct.agent.thread.cap)</th>
+        <th>관리서버가 생성가능한 에이전트 처리용량(0 에서 1 사이)</th>
+    </tr> 
+    <tr>
+        <th>Agent</th>
+        <th>Indirect agent lb algorithm (indirect.agent.lb.algorithm)</th>
+        <th>간접 에이전트 로드밸런싱 알고리즘</th>
+    </tr> 
+    <tr>
+        <th>Agent</th>
+        <th>Indirect agent lb check interval (indirect.agent.lb.check.interval)</th>
+        <th>간접 에이전트 로드밸런싱 확인 간격</th>
+    </tr> 
+</table>    
 
 * System VMs
     * 시스템 VM(예: 가상 라우터, 콘솔 프록시 등) 관련 설정 항목입니다.
