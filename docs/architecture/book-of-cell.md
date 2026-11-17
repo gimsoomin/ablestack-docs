@@ -1,7 +1,7 @@
 
-Cell은 '세포, 방' 등의 의미를 가진 명사로,  하나의 개체를 구성하기 위한 요소가 각자의 역할을 수행하는 상태를 묘사합니다. ABLESTACK은 호스트 내에서 구역을 정해 실행되는 가상머신 또는 컨테이너를 실행하기 위한 하이퍼바이저에 이 이름을 붙였습니다. 말 그대로 하나의 호스트의 자원을 쪼개서 각각의 역할을 수행하는 작은 단위의 세포 또는 방인 가상머신을 실행하기 위한 환경을 제공하는 플랫폼입니다.
+Cell은 '세포, 방' 등의 의미를 가진 명사로, 하나의 개체를 구성하기 위한 요소들이 각자의 역할을 수행하는 상태를 나타냅니다. ABLESTACK은 하나의 호스트를 여러 개의 독립된 영역으로 나누어 가상머신과 컨테이너를 실행하는 하이퍼바이저에 이러한 의미를 담아 Cell 이라는 이름을 붙였습니다. 말 그대로 호스트의 자원을 쪼개서 각각의 역할을 수행하는 작은 단위의 세포 또는 방인 가상머신을 실행하기 위한 환경을 제공하는 플랫폼입니다.
 
-Cell은 ABLESTACK에 내장된 하이퍼바이저이며, KVM을 기반으로 합니다. 기본적인 KVM에 스토리지 컨트롤, HA, 라이브 마이그레이션, 네트워크 자동화 및 격리 등의 기능이 ABLESTACK에 맞게 작동하도록 기본 기능을 확장하였습니다. Cell은 리눅스 뿐 아니라, Windows 및 관련 응용 프로그램이 실행되는 것에 대해 검증되어 있으며, 다양한 형태의 드라이버 지원을 통해 유연하게 관련 애플리케이션을 실행하도록 설계되어 있습니다.
+Cell은 ABLESTACK에 내장된 하이퍼바이저이며, KVM을 기반으로 합니다. 기본적인 KVM의 스토리지 컨트롤, HA, 라이브 마이그레이션, 네트워크 자동화 및 격리 등의 기능이 ABLESTACK에 맞게 작동하도록 확장하였습니다. Cell은 리눅스 뿐 아니라, Windows 및 관련 응용 프로그램 실행 환경에 대해 검증되었으며, 다양한 형태의 드라이버 지원을 통해 유연하게 관련 애플리케이션을 실행하도록 설계되어 있습니다.
 
 본 문서에서는 Cell의 아키텍처 및 기능을 설명합니다.
 
@@ -25,40 +25,40 @@ Cell은 Cube OS가 설치되면 자동으로 설치되며, KVM 하이퍼바이�
 
 다음의 그림은 ABLESTACK VM 구성에서의 Cell 하이퍼바이저의 호스트 관점에서 본 아키텍처를 묘사합니다.
 
-<center>
-![cell-host-architecture](../assets/images/ablestack-vm-cell-host-architecture.png)
-</center>
+<p align="center">
+<img src="../../assets/images/ablestack-vm-cell-host-architecture.png" alt="vm-cell-host-architecture">
+</p>
 
 ### HCI 호스트 아키텍처
 
-ABLESTACK HCI 구성을 위한 호스트에 Cube OS를 설치하고 스토리지 컨트롤러를 배포하면 컨트롤러는 가상머신으로 실행됩니다. 그리고 해당 가상머신에는 Glue 스토리지를 구성하기 위한 디스크 인벤토리로 SCSI 컨트롤러를 패스스루해서 전체 디스크를 컨트롤러 가상머신에 할당하거나, LUN 패스스루를 이용해 호스트의 특정 디스크를 가상머신에 할당합니다. 이를 통해 호스트에 있는 디스크는 하이퍼바이저를 우회하여 컨트롤러 가상머신에 직접 전달됩니다. 즉, 하이퍼바이저는 Glue를 구성하기 위해 설치된 호스트의 디스크를 컨트롤하지 않습니다.
+ABLESTACK HCI 구성을 위한 호스트에 Cube OS를 설치하고 스토리지 컨트롤러를 배포하면 컨트롤러는 가상머신으로 실행됩니다. Glue 스토리지 구성을 위해 해당 가상머신에 SCSI 컨트롤러를 패스스루하여 전체 디스크를 할당하거나, LUN 패스스루를 이용해 호스트의 특정 디스크를  할당합니다. 이를 통해 호스트에 있는 디스크는 하이퍼바이저를 우회하여 컨트롤러 가상머신에 직접 전달됩니다. 즉, 하이퍼바이저는 Glue를 구성하기 위해 설치된 호스트의 디스크를 컨트롤하지 않습니다.
 
 Cell은 전체 디스크 중 호스트의 OS 영역으로 할당된 디스크만 컨트롤하며 각각의 가상머신의 루트디스크 등의 볼륨으로 사용합니다. Cell은 KVM 하이퍼바이저를 기반으로 하며 사용자가 생성한 게스트 VM을 위해 베어메탈 하드웨어 가상화를 사용합니다.
 
 다음의 그림은 Cell 하이퍼바이저의 호스트 관점에서의 아키텍처를 묘사합니다.
 
-<center>
-![cell-host-architecture](../assets/images/cell-host-architecture.png)
-</center>
+<p align="center">
+<img src="../../assets/images/cell-host-architecture.png" alt="hci-cell-host-architecture">
+</p>
 
 ### 하이퍼바이저 아키텍처
 
-Cell은 Linux KVM을 기반으로 ABLESTACK 운영에 최적화된 기능을 추가한 내장된 하이퍼바이저입니다. Cell 하이퍼바이저는 다음과 같은 주요 컴포넌트로 구성됩니다.
+Cell은 Linux KVM을 기반으로 ABLESTACK 운영에 최적화한 하이퍼바이저입니다. Cell 하이퍼바이저는 다음과 같은 주요 컴포넌트로 구성됩니다.
 
-* KVM Kernel Module : Linux Kernel을 베어메탈 하이퍼바이저로 전환하기 위한 커널 모듈
-* libvirtd : KVM 및 QEMU 관리를 위한 API, 데몬 및 관리 도구. Cube/Mold와 KVM/QEMU 간의 통신은 libvirtd를 통해 이루어짐
-* qemu-kvm : 가상머신 실행을 위해 유저 스페이스에서 실행되는 하드웨어 에뮬레이터 및 가상화 프로세스이며, 하드웨어 지원 가상화 등에 사용됨
+* KVM Kernel Module : Linux 커널을 베어메탈 하이퍼바이저로 전환하기 위한 커널 모듈
+* libvirtd : KVM 및 QEMU 관리를 위한 API, 데몬 및 관리 도구. Cube/Mold와 KVM/QEMU 간의 통신은 libvirtd를 통해 이루어집니다.
+* qemu-kvm : 가상머신 실행을 위해 유저 스페이스에서 실행되는 하드웨어 에뮬레이터 및 가상화 프로세스이며, 하드웨어 지원 가상화 등에 사용됩니다.
 
 다음의 그림은 Cell 하이퍼바이저의 아키텍처를 묘사합니다.
 
-<center>
-![cube-hypervisor-architecture](../assets/images/cube-hypervisor-architecture.png)
-</center>
+<p align="center">
+<img src="../../assets/images/cell-hypervisor-architecture.png" alt="cell-hypervisor-architecture">
+</p>
 
 !!! info "CPU 세대 호환성"
-    호스트의 CPU가 서로 모델이 다르고 세대가 다른 경우, 각 호스트에서 실행 중인 가상머신이 다른 호스트로 마이그레이션 되는 것이 불가능할 수 있는데, 이러한 문제를 해결하고 가상머신의 마이그레이션 및 호환성을 보장하는 기술이 Cell에 적용되어 있습니다.
+    호스트마다 CPU가 다르거나 세대가 다른 경우, 각 호스트에서 실행 중인 가상머신이 다른 호스트로 마이그레이션 되는 것이 불가능할 수 있는데, 이러한 문제를 해결하고 가상머신의 마이그레이션 및 호환성을 보장하는 기술이 Cell에 적용되어 있습니다.
 
-    Cell은 CPU 세대 호환성을 적용할 것인지를 사용자가 선택할 수 있으며, 호환성을 적용하는 경우 클러스터 내에서 가장 세대가 낮은 프로세서를 이용해 가상머신의 CPU를 QEMU로 에뮬레이트하여 각 가상머신의 프로세서 호환성을 보장합니다.
+    Cell은 CPU 세대 호환성을 적용할 것인지 사용자가 선택할 수 있으며, 호환성을 적용하는 경우 클러스터 내에서 가장 세대가 낮은 프로세서를 QEMU로 에뮬레이트하여 각 가상머신의 프로세서 호환성을 보장합니다.
 
 ## Cell 제한 사항
 
@@ -70,11 +70,11 @@ Cell 사용 시 다음과 같은 일반 제한 사항이 적용됩니다.
 
 **Over Commit**
 
-Cell은 메모리와 디스크 공간 Over Commit을 모두 허용합니다. Over Commit을 명시적으로 허용하는 경우 이 기술을 사용해서 발생할 수 있는 예기치 않은 자원의 부족이나 성능의 저하 등에 대한 이슈의 여부를 사용자가 이해해야 합니다 만약 사용가능한 리소스를 초과하여 발생하는 하드웨어 오류는 가상머신 오류로 이어집니다. CPU 오버커밋을 성능에 영향을 미치므로 테스트 후 필요한 경우 사용해야 합니다.
+Cell은 CPU와 디스크 공간 Over Commit을 모두 허용합니다. Over Commit을 명시적으로 허용하는 경우 이 기술을 사용해서 발생할 수 있는 예기치 않은 자원 부족이나 성능의 저하 등의 영향을 사용자가 충분히 이해해야 합니다 만약 사용가능한 리소스를 초과하여 발생하는 하드웨어 오류는 가상머신 오류로 이어집니다. CPU 오버커밋은 성능에 영향을 미치므로 테스트 후 필요한 경우 사용해야 합니다.
 
 **시간동기화**
 
-대부분의 가상머신은 정확한 시간 기록을 위해 몇가지 추가 지원이 필요합니다. 기본적으로 가상머신에 게스트 에이전트가 사용되는 경우 kvm-clock을 사용합니다. 별도로 안정적인 시간 유지를 위해 NTP 또는 유사한 네트워크 기반 시간 유지 프로토콜 사용을 권장합니다.
+대부분의 가상머신은 정확한 시간 기록을 위해 몇 가지 추가 지원이 필요합니다. 기본적으로 가상머신에 게스트 에이전트가 사용되는 경우 kvm-clock을 사용합니다. 별도로 안정적인 시간 유지를 위해 NTP 또는 유사한 네트워크 기반 시간 유지 프로토콜 사용을 권장합니다.
 
 **MAC 주소**
 
@@ -90,7 +90,7 @@ NIC에 MAC 주소를 명시적으로 지정하지 않은 경우 기본적으로 
 
 ### 하드웨어 구성 제한 사항
 
-Cell은 가상머신에 대해 다음의 구성 제한에 대해 테스트 되었습니다. 가상머신 및 호스트가 다음의 한계에 도달하여 구성되고, 운영되더라도 성능에 영향 없이 동작하는 것을 보장합니다.
+Cell은 가상머신에 대해 다음의 구성 제한에 대해 테스트 되었습니다. 가상머신 및 호스트가 다음의 한계까지 구성되고, 운영되더라도 성능에 영향 없이 동작하는 것을 보장합니다.
 
 | 구분                   | 구성 제한값       |
 | --------------------- | --------------- |
@@ -126,9 +126,9 @@ ABLESTACK은 모든 가상머신 네트워킹에 Native Bridge를 사용합니�
 
 다음의 그림은 Cell의 Native Bridge 기반의 네트워킹 개념을 묘사합니다.
 
-<center>
-![cell-network-architecture](../assets/images/cell-network-architecture.png)
-</center>
+<p align="center">
+<img src="../../assets/images/cell-network-architecture.png" alt="cell-network-architecture">
+</p>
 
 ### Bridge
 
@@ -140,7 +140,7 @@ ABLESTACK은 모든 가상머신 네트워킹에 Native Bridge를 사용합니�
 
 ### VLAN
 
-브릿지는 가상머신의 트래픽을 분리하기 위해 VLAN으로 격리합니다. 브릿지는 VLAN 태깅을 통해 액세스 포트를 생성합니다. 예를 들어 VLAN ID가 101인 네트워크 브릿지를 만드는 경우 br-VM.101 이라는 브릿지를 만들고 해당 브릿지의 vnet 포트를 이용해 가상머신이 해당 VLAN으로 통신할 수 있도록 연결합니다.
+브릿지는 가상머신의 트래픽을 분리하기 위해 VLAN으로 격리합니다. 브릿지는 VLAN 태깅을 통해 트래픽을 VLAN 별로 분리합니다. 예를 들어 VLAN ID가 101인 네트워크 브릿지를 만드는 경우 br-VM.101 이라는 브릿지를 만들고 해당 브릿지의 vnet 포트를 이용해 가상머신이 해당 VLAN으로 통신할 수 있도록 연결합니다.
 
 ### Port
 
@@ -152,13 +152,13 @@ ABLESTACK은 모든 가상머신 네트워킹에 Native Bridge를 사용합니�
 
 ### 업링크 로드밸런싱
 
-위에서 언급한 바와 같이 Bond는 트래픽을 로드밸런싱을 사용할 수 있습니다. 다음과 같은 본드 모드를 사용할 수 있습니다.
+위에서 언급한 바와 같이 Bond는 트래픽을 로드밸런싱 할 수 있습니다. 다음과 같은 본드 모드를 사용할 수 있습니다.
 
-* round-robin : active-active 방식의 본딩으로 네트워크 트래픽을 본딩된 네트워크 인트페이스에 번갈아가며 분산합니다. 트래픽 처리량은 한 개의 NIC 대역폭으로 제한됩니다.
+* round-robin : active-active 방식의 본딩으로 네트워크 트래픽을 본딩된 네트워크 인터페이스에 번갈아 배분합니다. 트래픽 처리량은 한 개의 NIC 대역폭으로 제한됩니다.
 * active-backup : 하나의 액티브 어댑터를 통해 모든 트래픽을 전송하는 것으로 기본 설정입니다. 액티브 어댑터를 사용할 수 없게 되면 본드 내의 다른 어댑터가 액티브로 전환되며 트래픽 처리량은 한 개의 NIC 대역폭으로 제한됩니다.
 * balance-xor : XOR 연산을 이용해 목적지 MAC과 소스 MAC을 이용한 분배를 하게 됩니다. 목적지 MAC으로의 트래픽이 본드된 인터페이스 중 하나를 선택하면 해당 트래픽은 그 동안 해당 인터페이스로 트래픽이 전송됩니다.
 * broadcast : 특정한 규칙 없이 모든 슬레이브 인터페이스에 트래픽을 전송합니다.
-* 802.3ad LACP : Ling Aggregation으로 스위치에서 해당 설정이 지원되어야 합니다. 모든 인터페이스로 트래픽이 전송되며 트래픽 처리량은 2개의 NIC 대역폭을 제공합니다.
+* 802.3ad LACP : Link Aggregation으로 스위치에서 해당 설정이 지원되어야 합니다. 모든 인터페이스로 트래픽이 전송되며 트래픽 처리량은 본드에 포함된 인터페이스의 대역폭 합계까지 확장될 수 있으나, 개별 연결 처리량은 단일 NIC 대역폭으로 제한됩니다.
 
 ## 동작 방식
 
@@ -175,29 +175,29 @@ Cell은 Glue 스토리지와의 연결, 가상머신에의 할당, 마이그레�
 
 Cell은 Glue 스토리지 연결을 위해서 커스터마이징 된 librbd를 사용합니다. librbd는 Glue 스토리지의 블록 이미지를 Cell 하이버파이저가 인식할 수 있도록 도와주는 라이브러리 입니다. 다음의 그림은 Cell 하이퍼바이저가 Glue 스토리지를 이용해 가상머신 블록 디스크를 연결하는 경로를 묘사합니다.
 
-<center>
-![cell-general-storage-path](../assets/images/cell-general-storage-path.png)
-</center>
+<p align="center">
+<img src="../../assets/images/cell-general-storage-path.png" alt="cell-general-storage-path">
+</p>
 
 가상머신에 블록 디스크를 연결할 때 가장 권장하는 컨트롤러는 virtio-blk입니다. 그리고 다음으로 권장하는 컨트롤러는 virtio-scsi 입니다. ide 컨트롤러의 사용이 가능하지만 대부분의 환경에서 권장되지 않습니다. IO 성능이 매우 저하되기 때문입니다. virtio-blk 또는 virtio-scsi를 Windows 가상머신에서 사용하기 위해서는 virtio 드라이버와 에이전트를 반드시 설치해야 합니다. 최신 Linux 배포판에는 virtio 드라이버가 기본적으로 설치되어 있습니다.
 
 Cell의 librbd는 주기적으로 Glue 컨트롤 VM의 모니터 데몬의 실행 여부를 확인하고 최적의 경로를 선택하여 스토리지 IO가 발생하도록 관리합니다. 기본적으로 스토리지 연결은 가상머신이 실행 중인 호스트의 Glue 컨트롤러의 모니터 데몬에 연결합니다. 다음의 그림은 호스트가 3대 있는 경우 가상머신의 IO가 어떻게 발생하는지를 묘사합니다.
 
-<center>
-![cell-storage-multi-path](../assets/images/cell-storage-multi-path.png)
-</center>
+<p align="center">
+<img src="../../assets/images/cell-storage-multi-path.png" alt="cell-storage-multi-path">
+</p>
+
 
 만약 가상머신이 실행 중인 호스트의 스토리지 컨트롤러가 중지된 경우, librbd는 자동으로 다음으로 가까운 Glue 컨트롤러의 모니터 데몬에 연결하여 지속적인 IO가 발생하도록 처리합니다. 다음의 그림은 가상머신이 실행 중인 호스트의 스토리지 컨트롤러가 응답이 없는 경우의 IO 경로를 묘사합니다.
-
-<center>
-![cell-storage-fail-over](../assets/images/cell-storage-fail-over.png)
-</center>
+<p align="center">
+<img src="../../assets/images/cell-storage-fail-over.png" alt="cell-storage-fail-over">
+</p>
 
 만약 응답이 없던 스토리지 컨트롤러가 되살아 나는 경우 librbd는 바로 이를 인식하고, 다시 가상머신이 실행 중인 로컬 스토리지 컨트롤러로 IO가 발생하도록 설정합니다. 다음의 그림은 스토리지 컨트롤러의 장애가 해결되어 다시 스토리지 IO 경로가 복구되는 상황을 묘사합니다.
 
-<center>
-![cell-storage-fail-back](../assets/images/cell-storage-fail-back.png)
-</center>
+<p align="center">
+<img src="../../assets/images/cell-storage-fail-back.png" alt="cell-storage-fail-back">
+</p>
 
 이와 같이 Cell은 librbd를 통해 Glue Storage와 연결하여, 최적의 IO Path를 탐색하고, 일부 Glue Storage 컨트롤러에 문제가 발생하는 경우에도 지속적으로 IO가 발생하도록 경로를 재설정하는 기능을 제공하도록 설계되어 있습니다.
 
@@ -207,9 +207,9 @@ Cell은 호스트 고가용성을 제공하기 위해 libvirt의 상태를 확�
 
 호스트 고가용성은 어떠한 스토리지를 사용하든 동일한 고가용성 아키텍처를 제공합니다. 다음의 그림은 Cell의 고가용성 아키텍처를 설명합니다.
 
-<center>
-![cell-ha-regardless-storage](../assets/images/cell-ha-regardless-storage.png)
-</center>
+<p align="center">
+<img src="../../assets/images/cell-ha-regardless-storage.png" alt="cell-ha-regardless-storage">
+</p>
 
 각 호스트에는 Cell HA Helper 데몬이 실행됩니다. 해당 데몬은 libvirt를 이용해 스토리지의 연결상태 및 가상머신의 실행상태를 점검하는 Heartbeat 프로세스를 실행합니다. 그리고 이러한 점검을 자신만 하는 것이 아니라, 클러스터 내에 있는 이웃 호스트에도 요청하여 호스트가 정상적인지를 주기적으로 확인합니다.
 
@@ -224,6 +224,6 @@ Cell은 가상머신의 라이브 마이그레이션을 지원합니다. 라이�
 
 다음의 그림은 Cell의 가상머신 라이브 마이그레이션의 처리 아키텍처를 묘사합니다.
 
-<center>
-![cell-vm-live-migration](../assets/images/cell-vm-live-migration.png)
-</center>
+<p align="center">
+<img src="../../assets/images/cell-vm-live-migration.png" alt="cell-vm-live-migration">
+</p>
